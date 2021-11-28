@@ -14,9 +14,46 @@
 --]]
 
 
+
+
 local finity = {}
 finity.gs = {}
 
+finity.theme = { -- light
+	main_container = Color3.fromRGB(249, 249, 255),
+	separator_color = Color3.fromRGB(223, 219, 228),
+
+	text_color = Color3.fromRGB(96, 96, 96),
+
+	category_button_background = Color3.fromRGB(223, 219, 228),
+	category_button_border = Color3.fromRGB(200, 196, 204),
+
+	checkbox_checked = Color3.fromRGB(114, 214, 112),
+	checkbox_outer = Color3.fromRGB(198, 189, 202),
+	checkbox_inner = Color3.fromRGB(249, 239, 255),
+
+	slider_color = Color3.fromRGB(114, 214, 112),
+	slider_color_sliding = Color3.fromRGB(114, 214, 112),
+	slider_background = Color3.fromRGB(198, 188, 202),
+	slider_text = Color3.fromRGB(112, 112, 112),
+
+	textbox_background = Color3.fromRGB(198, 189, 202),
+	textbox_background_hover = Color3.fromRGB(215, 206, 227),
+	textbox_text = Color3.fromRGB(112, 112, 112),
+	textbox_text_hover = Color3.fromRGB(50, 50, 50),
+	textbox_placeholder = Color3.fromRGB(178, 178, 178),
+
+	dropdown_background = Color3.fromRGB(198, 189, 202),
+	dropdown_text = Color3.fromRGB(112, 112, 112),
+	dropdown_text_hover = Color3.fromRGB(50, 50, 50),
+	dropdown_scrollbar_color = Color3.fromRGB(198, 189, 202),
+	
+	button_background = Color3.fromRGB(198, 189, 202),
+	button_background_hover = Color3.fromRGB(215, 206, 227),
+	button_background_down = Color3.fromRGB(178, 169, 182),
+	
+	scrollbar_color = Color3.fromRGB(198, 189, 202),
+}
 
 finity.dark_theme = { -- dark
 	main_container = Color3.fromRGB(32, 32, 33),
@@ -27,12 +64,12 @@ finity.dark_theme = { -- dark
 	category_button_background = Color3.fromRGB(63, 62, 65),
 	category_button_border = Color3.fromRGB(72, 71, 74),
 
-	checkbox_checked = Color3.fromRGB(132, 255, 130),
+	checkbox_checked = Color3.fromRGB(222, 53, 149),
 	checkbox_outer = Color3.fromRGB(84, 81, 86),
 	checkbox_inner = Color3.fromRGB(132, 132, 136),
 
-	slider_color = Color3.fromRGB(177, 177, 177),
-	slider_color_sliding = Color3.fromRGB(132, 255, 130),
+	slider_color = Color3.fromRGB(222, 53, 149),
+	slider_color_sliding = Color3.fromRGB(222, 53, 149),
 	slider_background = Color3.fromRGB(88, 84, 90),
 	slider_text = Color3.fromRGB(177, 177, 177),
 
@@ -631,6 +668,25 @@ function finity.new(isdark, gprojectName, thinProject)
 								finity.gs["TweenService"]:Create(cheat.checkboxbutton, TweenInfo.new(0.2), {ImageColor3 = theme.checkbox_inner}):Play()
 							end
 						end)
+						
+						function cheat:SetValue(value)
+						    cheat.value = value
+						    if cheat.value then
+							finity.gs["TweenService"]:Create(cheat.outerbox, TweenInfo.new(0.2), {ImageColor3 = theme.checkbox_checked}):Play()
+											finity.gs["TweenService"]:Create(cheat.checkboxbutton, TweenInfo.new(0.2), {ImageColor3 = theme.checkbox_checked}):Play()
+						    else
+							finity.gs["TweenService"]:Create(cheat.outerbox, TweenInfo.new(0.2), {ImageColor3 = theme.checkbox_outer}):Play()
+											finity.gs["TweenService"]:Create(cheat.checkboxbutton, TweenInfo.new(0.2), {ImageColor3 = theme.checkbox_inner}):Play()
+						    end
+						    if callback then
+							local s, e = pcall(function()
+							    callback(cheat.value)
+							end)
+							if not s then 
+							    warn("error: "..e) 
+							end
+						    end
+                        			end
 
 						cheat.checkboxbutton.Parent = cheat.outerbox
                         cheat.outerbox.Parent = cheat.container
@@ -924,11 +980,8 @@ function finity.new(isdark, gprojectName, thinProject)
 						function cheat:RemoveOption(value)
 							local removed = false
 							for index, option in next, options do
-								if option == value then
-									table.remove(options, index)
+								table.remove(options, index)
 									removed = true
-									break
-								end
 							end
 							
 							if removed then
@@ -939,9 +992,24 @@ function finity.new(isdark, gprojectName, thinProject)
 						end
 						
 						function cheat:AddOption(value)
-							table.insert(options, value)
-							
-							refreshOptions()
+							if type(value) == "table" then
+								for i, v in next, value do
+									table.insert(options, v)
+									refreshOptions()
+								end
+							end
+						end
+					
+						function cheat:Refresh(vals)
+							if type(vals) == "table" then
+								table.clear(options)
+								refreshOptions()
+								wait()
+								for index2, add in next, vals do
+									table.insert(options, add)
+									refreshOptions()
+								end
+							end						
 						end
 						
 						function cheat:SetValue(value)
@@ -1278,6 +1346,14 @@ function finity.new(isdark, gprojectName, thinProject)
 								if not s then warn("error: ".. e) end
 							end
                         end
+						function cheat:SetValue(val)
+							cheat.button.Text = val or val.Text
+						end
+						function cheat:Onclick(call)
+							cheat.button.MouseButton1Click:connect(function()
+								pcall(call)
+							end)
+						end
 
 						cheat.background.Parent = cheat.container
 						cheat.button.Parent = cheat.container
