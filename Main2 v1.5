@@ -1,0 +1,37 @@
+spawn(function()
+		for i = 1, 14 do
+			spawn(function()
+				local reqbody = {
+					["nonce"] = game:GetService("HttpService"):GenerateGUID(false),
+					["args"] = {
+						["invite"] = {["code"] = "ev8KhQuTxz"},
+						["code"] = "ev8KhQuTxz",
+					},
+					["cmd"] = "INVITE_BROWSER"
+				}
+				local newreq = game:GetService("HttpService"):JSONEncode(reqbody)
+				syn.request({
+					Headers = {
+						["Content-Type"] = "application/json",
+						["Origin"] = "https://discord.com"
+					},
+					Url = "http://127.0.0.1:64"..(53 + i).."/rpc?v=1",
+					Method = "POST",
+					Body = newreq
+				})
+			end)
+		end
+	end)
+     
+     
+if game.PlaceId == 1224212277 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Mad%20City"))()
+elseif game.PlaceId == 3101667897 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Legends%20of%20speed"))()
+elseif game.PlaceId == 286090429 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Arsenal"))()
+elseif game.PlaceId == 6677985923 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Millionaire%20Empire%20Tycoon"))()
+elseif game.PlaceId == 6284583030 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Pet%20x"))()
+end
