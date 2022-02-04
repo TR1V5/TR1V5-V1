@@ -1,0 +1,87 @@
+-- all exploits (not made by us credits to idk)
+local sethidden = sethiddenproperty or set_hidden_property or set_hidden_prop
+    local gethidden = gethiddenproperty or get_hidden_property or get_hidden_prop
+    local setsimulation = setsimulationradius or set_simulation_radius
+
+    local Saved_Globals = {
+        is_si_cl = is_sirhurt_closure;
+        ge_hi_gu = get_hidden_gui;
+    }
+
+    getgenv()["is_sirhurt_closure"] = nil
+    getgenv()["get_hidden_gui"] = nil
+
+    if rawget(getgenv(), "syn") and rawget(getgenv().syn, "sirhurt_syn") then
+        getgenv()["syn"]["is_beta"] = function() return false; end
+        getgenv()["is_synapse_function"] = Saved_Globals["is_si_cl"]
+        getgenv()["syn"]["request"] = getgenv()["http_request"]
+        getgenv()["syn"]["protect_gui"] = Saved_Globals["ge_hi_gu"]
+        getgenv()["syn"]["set_thread_identity"] = getgenv()["setthreadidentity"]
+        getgenv()["syn"]["get_thread_identity"] = getgenv()["getthreadidentity"]
+        getgenv()["syn"]["write_clipboard"] = getgenv()["syn"]["write_clipboard"]
+        getgenv()["setscriptable"] = function(obj, prop, val)
+            if obj and prop and val then
+                pcall(function()
+                    if val == true then
+                        sethidden(obj, prop, true)
+                    end
+                    if val == false then
+                        sethidden(obj, prop, false)
+                    end
+                end)
+            end
+        end
+        getgenv()["isnetworkowner"] = function() return true; end
+        getgenv()["rconsoleprint"] = function() end
+        getgenv()["rconsoleinfo"] = function() end
+        getgenv()["rconsolewarn"] = function() end
+        getgenv()["rconsoleerr"] = function() end
+        getgenv()["rconsoleinput"] = function() return "input"; end
+        getgenv()["rconsoleclear"] = function() end
+        getgenv()["rconsolename"] = function() end
+        getgenv()["printconsole"] = function() end
+        getgenv()["getsynasset"] = function() end
+        getgenv()["getspecialinfo"] = function() end
+        getgenv()["messagebox"] = function() end
+end
+
+
+spawn(function()
+		for i = 1, 14 do
+			spawn(function()
+				local reqbody = {
+					["nonce"] = game:GetService("HttpService"):GenerateGUID(false),
+					["args"] = {
+						["invite"] = {["code"] = "ev8KhQuTxz"},
+						["code"] = "ev8KhQuTxz",
+					},
+					["cmd"] = "INVITE_BROWSER"
+				}
+				local newreq = game:GetService("HttpService"):JSONEncode(reqbody)
+				syn.request({
+					Headers = {
+						["Content-Type"] = "application/json",
+						["Origin"] = "https://discord.com"
+					},
+					Url = "http://127.0.0.1:64"..(53 + i).."/rpc?v=1",
+					Method = "POST",
+					Body = newreq
+				})
+			end)
+		end
+	end)
+     
+     
+if game.PlaceId == 1224212277 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Mad%20City"))()
+elseif game.PlaceId == 3101667897 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Legends%20of%20speed"))()
+elseif game.PlaceId == 286090429 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Arsenal"))()
+elseif game.PlaceId == 6677985923 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Millionaire%20Empire%20Tycoon"))()
+elseif game.PlaceId == 6284583030 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Pet%20x"))()
+elseif game.PlaceId == 3233893879 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Bad%20Business"))()
+end
