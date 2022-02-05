@@ -1,8 +1,0 @@
-function kick()
-    game:GetService("Players").LocalPlayer:Kick("Please to get the updated version join discord server, discord server have been set on you clipboard")
-end
-
-setclipboard("https://discord.gg/fUBwBXZHcq")
-wait(1)
-kick()
-
