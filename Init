@@ -1,10 +1,7 @@
-     
-if game.PlaceId == 1224212277 then
+     if game.PlaceId == 1224212277 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Mad%20City"))()
 elseif game.PlaceId == 3101667897 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Legends%20of%20speed"))()
-elseif game.PlaceId == 286090429 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Arsenal"))()
 elseif game.PlaceId == 6677985923 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/TR1V5/TR1V5-V1/main/Millionaire%20Empire%20Tycoon"))()
 elseif game.PlaceId == 6284583030 then
